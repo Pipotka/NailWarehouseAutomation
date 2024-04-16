@@ -75,6 +75,11 @@ namespace NailWarehouseAutomation.Models
         public Nail()
         {
             id = Guid.NewGuid();
+            Name = "";
+            Diameter = 1.0000000;
+            Length = 1.0000000;
+            Quantity = 1;
+            PriceExcludingVAT = 1.00;
         }
         /// <summary>
         /// реализация метода интерфейса <see cref="ICloneable"/>
