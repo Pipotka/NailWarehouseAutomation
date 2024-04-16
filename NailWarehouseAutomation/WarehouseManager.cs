@@ -20,8 +20,8 @@ namespace NailWarehouseAutomation
             nail = (Nail)sourse?.Clone() ?? new Nail();
             InitializeComponent();
             NameTextBox.AddBindings(x => x.Text, nail, x => x.Name, errorProvider);
-            LengthNumericUpDown.DataBindings.Add("Value", nail, nameof(Nail.Size.Length));
-            LengthNumericUpDown.AddBindings(x => x.Value, nail, x => x.Size.Length, errorProvider);
+            //LengthNumericUpDown.DataBindings.Add(nameof(NumericUpDown.Value), nail, nameof(Nail.Length));
+            LengthNumericUpDown.AddBindings(x => x.Value, nail, x => x.Length, errorProvider);
             //DiameterNumericUpDown.AddBindings(x => x.Value, nail, x => x.Size.Diameter, errorProvider);
             //MaterialComboBox.AddBindings(x => x., nail, x => x.Name, errorProvider);
             //QuantityNnumericUpDown.AddBindings(x => x.Text, nail, x => x.Name, errorProvider);

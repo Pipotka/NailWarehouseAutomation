@@ -310,7 +310,7 @@
             LengthNumericUpDown.Size = new Size(154, 25);
             LengthNumericUpDown.TabIndex = 24;
             LengthNumericUpDown.ThousandsSeparator = true;
-            LengthNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            LengthNumericUpDown.Value = new decimal(new int[] { 10000000, 0, 0, 458752 });
             // 
             // PriceExcludingVATNumericUpDown
             // 

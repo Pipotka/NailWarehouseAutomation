@@ -36,10 +36,22 @@ namespace NailWarehouseAutomation.Models
             ErrorMessage = "Имя должно иметь длину от 1 и до 70 символов")]
         public string Name { get; set; }
         /// <summary>
-        /// <see cref="NailWarehouseAutomation.Models.ClassesOfModels.NailSize"/>
+        /// Диаметр гвоздя
         /// </summary>
-        [Required(ErrorMessage = "Не указан размер товара")]
-        public ClassesOfModels.NailSize Size { get; set; }
+        [Required(ErrorMessage = "Не указан диаметр товара")]
+        [Range(0.0000001, double.MaxValue, ErrorMessage = "Недопустимый диаметр товара")]
+        public double Diameter { get; set; }
+        /// <summary>
+        /// Высота гвоздя
+        /// </summary>
+        [Required(ErrorMessage = "Не указана длина товара")]
+        [Range(0.0000001, double.MaxValue, ErrorMessage = "Недопустимая длина товара")]
+        public double Length { get; set; }
+        ///// <summary>
+        ///// <see cref="NailWarehouseAutomation.Models.ClassesOfModels.NailSize"/>
+        ///// </summary>
+        //[Required(ErrorMessage = "Не указан размер товара")]
+        //public ClassesOfModels.NailSize Size { get; set; }
         /// <summary>
         /// <see cref="Models.ClassEnums.NailMaterials"/>
         /// </summary>
