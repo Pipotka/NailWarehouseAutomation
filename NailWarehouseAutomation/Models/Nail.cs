@@ -4,51 +4,73 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using NailWarehouseAutomation.Models.ClassesOfModels;
 
 namespace NailWarehouseAutomation.Models
 {
-    public class Nail
+    public class Nail : ICloneable
     {
-        private const int minQuantity = 0;
-        public Guid Id { get; }
-        public string Name
+        /// <summary>
+        ///  Минимальное значение для поля  <see cref="Quantity"/>
+        /// </summary>
+        private const int minQuantity = 1;
+        /// <summary>
+        /// Максимальное количесво символов в  поле <see cref="Name"/>
+        /// </summary>
+        private const int maxStringLength = 70;
+        /// <summary>
+        /// Минимальное количесво символов в поле  <see cref="Name"/>
+        /// </summary>
+        private const int minStringLength = 1;
+        /// <summary>
+        /// Первичный ключ для БД
+        /// </summary>
+        public Guid id { get; }
+        /// <summary>
+        /// Наименование гвоздей
+        /// </summary>
+        [Required(ErrorMessage = "Не указанно имя товара")]
+        [StringLength(maxStringLength,
+            MinimumLength = minStringLength,
+            ErrorMessage = "Имя должно иметь длину от 1 и до 70 символов")]
+        public string Name { get; set; }
+        /// <summary>
+        /// <see cref="NailWarehouseAutomation.Models.ClassesOfModels.NailSize"/>
+        /// </summary>
+        [Required(ErrorMessage = "Не указан размер товара")]
+        public ClassesOfModels.NailSize Size { get; set; }
+        /// <summary>
+        /// <see cref="Models.ClassEnums.NailMaterials"/>
+        /// </summary>
+        [Required(ErrorMessage = "Не указан материал из которого изготовлен товар")]
+        public ClassEnums.NailMaterials Material { get; set; }
+        /// <summary>
+        /// Количество данных гвоздей
+        /// </summary>
+        [Required(ErrorMessage = "Не указано количество товара")]
+        [Range(minQuantity, int.MaxValue, ErrorMessage = "Недопустимое количество товара")]
+        public int Quantity { get; set; }
+        /// <summary>
+        /// Цена без НДС
+        /// </summary>
+        [Required(ErrorMessage = "Не указана цена одного экземпляра товара без учёта НДС")]
+        [Range(0, double.MaxValue, ErrorMessage = "Недопустимая цена товара(без учёта НДС)")]
+        public double PriceExcludingVAT { get; set; }
+        /// <summary>
+        /// Базовый конструктор
+        /// </summary>
+        public Nail()
         {
-            get => Name;
-            
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    Name = value;
-                }
-            }
+            id = Guid.NewGuid();
         }
-        public ClassesOfModels.NailSize Size { get; }
-        public ClassEnums.NailMaterials Material { get; }
-        private int quantity;
-        private double priceExcludingVAT;
-
-
-        public void ChangeQuantity(int change)
+        /// <summary>
+        /// реализация метода интерфейса <see cref="ICloneable"/>
+        /// </summary>
+        /// <returns>копия экземпляра класса <see cref="Nail"/></returns>
+        public object Clone()
         {
-            if (quantity + change >= 0)
-            {
-                quantity += change;
-            }
+            return MemberwiseClone();
         }
-
-        public int GetQuantity() => quantity;
-
-        public void ChangePriceExcludingVAT(double change)
-        {
-            if (priceExcludingVAT + change >= 0)
-            {
-                priceExcludingVAT += change;
-            }
-        }
-
-        public double TotalCostExcludingVAT() => priceExcludingVAT * quantity;
-
-        public double TotalCostWithVAT(double VAT) => (((VAT / 100) * priceExcludingVAT) + priceExcludingVAT) * quantity;
     }
-}
+} 
