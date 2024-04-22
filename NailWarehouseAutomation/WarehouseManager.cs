@@ -16,11 +16,12 @@ namespace NailWarehouseAutomation
 {
     public partial class WarehouseManager : Form
     {
-        private Material[] materials; 
-        private readonly Nail nail;
+        private Material[] materials;
+        public readonly Nail nail;
         public WarehouseManager(Nail sourse)
         {
             nail = (Nail)sourse?.Clone() ?? new Nail();
+            nail.SetGuid();
             InitializeComponent();
             materials = new Material[4]
             {
@@ -35,20 +36,21 @@ namespace NailWarehouseAutomation
             MaterialComboBox.DataSource = materials;
             MaterialComboBox.DisplayMember = nameof(Material.Name);
             MaterialComboBox.ValueMember = nameof(Material.M);
-
             MaterialComboBox.AddBindings(x => x.SelectedValue, nail, x => x.Material, errorProvider);
             QuantityNnumericUpDown.AddBindings(x => x.Value, nail, x => x.Quantity, errorProvider);
             PriceExcludingVATNumericUpDown.AddBindings(x => x.Value, nail, x => x.PriceExcludingVAT, errorProvider);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void OkButton_Click(object sender, EventArgs e)
         {
-            NameLabel.Text = nail.Name;
-            LengthLabel.Text = nail.Length.ToString();
-            DiameterLabel.Text = nail.Diameter.ToString();
-            QuantityLabel.Text = nail.Quantity.ToString();
-            PriceExcludingVATLabel.Text = nail?.PriceExcludingVAT.ToString();
-            MaterialLabel.Text = nail?.Material.ToString();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

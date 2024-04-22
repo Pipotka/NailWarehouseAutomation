@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using NailWarehouseAutomation.Models.ClassesOfModels;
+using System.Reflection.Metadata.Ecma335;
 
 namespace NailWarehouseAutomation.Models
 {
@@ -26,7 +27,7 @@ namespace NailWarehouseAutomation.Models
         /// <summary>
         /// Первичный ключ для БД
         /// </summary>
-        public Guid id { get; }
+        private Guid id;
         /// <summary>
         /// Наименование гвоздей
         /// </summary>
@@ -39,19 +40,14 @@ namespace NailWarehouseAutomation.Models
         /// Диаметр гвоздя
         /// </summary>
         [Required(ErrorMessage = "Не указан диаметр товара")]
-        [Range(0.0000001, double.MaxValue, ErrorMessage = "Недопустимый диаметр товара")]
+        [Range(0.001, double.MaxValue, ErrorMessage = "Недопустимый диаметр товара")]
         public double Diameter { get; set; }
         /// <summary>
         /// Высота гвоздя
         /// </summary>
         [Required(ErrorMessage = "Не указана длина товара")]
-        [Range(0.0000001, double.MaxValue, ErrorMessage = "Недопустимая длина товара")]
+        [Range(0.001, double.MaxValue, ErrorMessage = "Недопустимая длина товара")]
         public double Length { get; set; }
-        ///// <summary>
-        ///// <see cref="NailWarehouseAutomation.Models.ClassesOfModels.NailSize"/>
-        ///// </summary>
-        //[Required(ErrorMessage = "Не указан размер товара")]
-        //public ClassesOfModels.NailSize Size { get; set; }
         /// <summary>
         /// <see cref="Models.ClassEnums.NailMaterials"/>
         /// </summary>
@@ -69,18 +65,7 @@ namespace NailWarehouseAutomation.Models
         [Required(ErrorMessage = "Не указана цена одного экземпляра товара без учёта НДС")]
         [Range(0, double.MaxValue, ErrorMessage = "Недопустимая цена товара(без учёта НДС)")]
         public double PriceExcludingVAT { get; set; }
-        /// <summary>
-        /// Базовый конструктор
-        /// </summary>
-        public Nail()
-        {
-            id = Guid.NewGuid();
-            Name = "";
-            Diameter = 1.0000000;
-            Length = 1.0000000;
-            Quantity = 1;
-            PriceExcludingVAT = 1.00;
-        }
+        
         /// <summary>
         /// реализация метода интерфейса <see cref="ICloneable"/>
         /// </summary>
@@ -89,5 +74,20 @@ namespace NailWarehouseAutomation.Models
         {
             return MemberwiseClone();
         }
+        /// <summary>
+        /// Расчитывает цену товара с указанным НДС
+        /// </summary>
+        /// <param name="VAT">НДС</param>
+        /// <returns>Возвращает стоимость товара с НДС</returns>
+        public double PriceIncludingVAT(double VAT) => (PriceExcludingVAT / 100 * VAT) + PriceExcludingVAT;
+        /// <summary>
+        /// Устанавливает id товара
+        /// </summary>
+        public void SetGuid() => id = Guid.NewGuid();
+        /// <summary>
+        /// Возвращает id товара
+        /// </summary>
+        /// <returns>id</returns>
+        public Guid GetId() => id;
     }
 } 

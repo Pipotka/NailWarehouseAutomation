@@ -52,7 +52,6 @@
             DiameterNumericUpDown = new NumericUpDown();
             LengthNumericUpDown = new NumericUpDown();
             PriceExcludingVATNumericUpDown = new NumericUpDown();
-            button1 = new Button();
             TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)QuantityNnumericUpDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
@@ -119,7 +118,7 @@
             // 
             SizeLabel.AutoSize = true;
             SizeLabel.BackColor = Color.FromArgb(255, 211, 0);
-            SizeLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            SizeLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             SizeLabel.ForeColor = Color.FromArgb(18, 64, 171);
             SizeLabel.Location = new Point(32, 178);
             SizeLabel.Name = "SizeLabel";
@@ -226,6 +225,7 @@
             OkButton.TabIndex = 18;
             OkButton.Text = "OK\r\n";
             OkButton.UseVisualStyleBackColor = false;
+            OkButton.Click += OkButton_Click;
             // 
             // CancelButton
             // 
@@ -244,6 +244,7 @@
             CancelButton.TabIndex = 19;
             CancelButton.Text = " Отмена";
             CancelButton.UseVisualStyleBackColor = false;
+            CancelButton.Click += CancelButton_Click;
             // 
             // QuantityNnumericUpDown
             // 
@@ -253,12 +254,10 @@
             QuantityNnumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             QuantityNnumericUpDown.Location = new Point(32, 386);
             QuantityNnumericUpDown.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
-            QuantityNnumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             QuantityNnumericUpDown.Name = "QuantityNnumericUpDown";
             QuantityNnumericUpDown.Size = new Size(200, 25);
             QuantityNnumericUpDown.TabIndex = 20;
             QuantityNnumericUpDown.ThousandsSeparator = true;
-            QuantityNnumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // SizePanel
             // 
@@ -284,33 +283,30 @@
             // 
             DiameterNumericUpDown.BackColor = Color.FromArgb(113, 9, 170);
             DiameterNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
-            DiameterNumericUpDown.DecimalPlaces = 7;
+            DiameterNumericUpDown.DecimalPlaces = 3;
             DiameterNumericUpDown.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
             DiameterNumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             DiameterNumericUpDown.Location = new Point(32, 236);
             DiameterNumericUpDown.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
-            DiameterNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 458752 });
             DiameterNumericUpDown.Name = "DiameterNumericUpDown";
             DiameterNumericUpDown.Size = new Size(172, 25);
             DiameterNumericUpDown.TabIndex = 23;
             DiameterNumericUpDown.ThousandsSeparator = true;
-            DiameterNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // LengthNumericUpDown
             // 
             LengthNumericUpDown.BackColor = Color.FromArgb(113, 9, 170);
             LengthNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
-            LengthNumericUpDown.DecimalPlaces = 7;
+            LengthNumericUpDown.DecimalPlaces = 3;
             LengthNumericUpDown.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
             LengthNumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             LengthNumericUpDown.Location = new Point(228, 236);
             LengthNumericUpDown.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
-            LengthNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 458752 });
             LengthNumericUpDown.Name = "LengthNumericUpDown";
             LengthNumericUpDown.Size = new Size(154, 25);
             LengthNumericUpDown.TabIndex = 24;
+            LengthNumericUpDown.TextAlign = HorizontalAlignment.Right;
             LengthNumericUpDown.ThousandsSeparator = true;
-            LengthNumericUpDown.Value = new decimal(new int[] { 10000000, 0, 0, 458752 });
             // 
             // PriceExcludingVATNumericUpDown
             // 
@@ -321,30 +317,19 @@
             PriceExcludingVATNumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             PriceExcludingVATNumericUpDown.Location = new Point(32, 460);
             PriceExcludingVATNumericUpDown.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
-            PriceExcludingVATNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 196608 });
             PriceExcludingVATNumericUpDown.Name = "PriceExcludingVATNumericUpDown";
             PriceExcludingVATNumericUpDown.Size = new Size(342, 25);
             PriceExcludingVATNumericUpDown.TabIndex = 25;
             PriceExcludingVATNumericUpDown.ThousandsSeparator = true;
-            PriceExcludingVATNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
-            // button1
-            // 
-            button1.Location = new Point(406, 323);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 26;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // WarehouseManager
             // 
+            AcceptButton = OkButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            CancelButton = CancelButton;
             ClientSize = new Size(591, 624);
-            Controls.Add(button1);
             Controls.Add(PriceExcludingVATNumericUpDown);
             Controls.Add(LengthNumericUpDown);
             Controls.Add(DiameterNumericUpDown);
@@ -406,6 +391,5 @@
         private NumericUpDown DiameterNumericUpDown;
         private NumericUpDown PriceExcludingVATNumericUpDown;
         private NumericUpDown LengthNumericUpDown;
-        private Button button1;
     }
 }

@@ -11,7 +11,6 @@ namespace NailWarehouseAutomation.Models.ClassEnums
     /// </summary>
     public enum NailMaterials
     {
-        None,
         Copper,
         Steel,
         Iron,
