@@ -162,6 +162,7 @@
             MaterialComboBox.Name = "MaterialComboBox";
             MaterialComboBox.Size = new Size(183, 25);
             MaterialComboBox.TabIndex = 11;
+            MaterialComboBox.DrawItem += MaterialComboBox_DrawItem;
             // 
             // MaterialLabel
             // 
@@ -328,7 +329,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            CancelButton = CancelButton;
             ClientSize = new Size(591, 624);
             Controls.Add(PriceExcludingVATNumericUpDown);
             Controls.Add(LengthNumericUpDown);

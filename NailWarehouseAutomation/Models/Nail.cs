@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using NailWarehouseAutomation.Models.ClassesOfModels;
 using System.Reflection.Metadata.Ecma335;
 
 namespace NailWarehouseAutomation.Models
@@ -17,11 +16,11 @@ namespace NailWarehouseAutomation.Models
         /// </summary>
         private const int minQuantity = 1;
         /// <summary>
-        /// Максимальное количесво символов в  поле <see cref="Name"/>
+        /// Максимальное количество символов в  поле <see cref="Name"/>
         /// </summary>
         private const int maxStringLength = 70;
         /// <summary>
-        /// Минимальное количесво символов в поле  <see cref="Name"/>
+        /// Минимальное количество символов в поле  <see cref="Name"/>
         /// </summary>
         private const int minStringLength = 1;
         /// <summary>
@@ -75,7 +74,7 @@ namespace NailWarehouseAutomation.Models
             return MemberwiseClone();
         }
         /// <summary>
-        /// Расчитывает цену товара с указанным НДС
+        /// Рассчитывает цену товара с указанным НДС
         /// </summary>
         /// <param name="VAT">НДС</param>
         /// <returns>Возвращает стоимость товара с НДС</returns>
