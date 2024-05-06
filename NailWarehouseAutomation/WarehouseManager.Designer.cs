@@ -153,6 +153,7 @@
             // MaterialComboBox
             // 
             MaterialComboBox.BackColor = Color.FromArgb(113, 9, 170);
+            MaterialComboBox.DrawMode = DrawMode.OwnerDrawFixed;
             MaterialComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             MaterialComboBox.FlatStyle = FlatStyle.Flat;
             MaterialComboBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
@@ -160,7 +161,7 @@
             MaterialComboBox.FormattingEnabled = true;
             MaterialComboBox.Location = new Point(32, 311);
             MaterialComboBox.Name = "MaterialComboBox";
-            MaterialComboBox.Size = new Size(183, 25);
+            MaterialComboBox.Size = new Size(183, 26);
             MaterialComboBox.TabIndex = 11;
             MaterialComboBox.DrawItem += MaterialComboBox_DrawItem;
             // 
@@ -284,7 +285,7 @@
             // 
             DiameterNumericUpDown.BackColor = Color.FromArgb(113, 9, 170);
             DiameterNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
-            DiameterNumericUpDown.DecimalPlaces = 3;
+            DiameterNumericUpDown.DecimalPlaces = 2;
             DiameterNumericUpDown.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
             DiameterNumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             DiameterNumericUpDown.Location = new Point(32, 236);
@@ -298,7 +299,7 @@
             // 
             LengthNumericUpDown.BackColor = Color.FromArgb(113, 9, 170);
             LengthNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
-            LengthNumericUpDown.DecimalPlaces = 3;
+            LengthNumericUpDown.DecimalPlaces = 2;
             LengthNumericUpDown.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
             LengthNumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             LengthNumericUpDown.Location = new Point(228, 236);
@@ -313,7 +314,7 @@
             // 
             PriceExcludingVATNumericUpDown.BackColor = Color.FromArgb(113, 9, 170);
             PriceExcludingVATNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
-            PriceExcludingVATNumericUpDown.DecimalPlaces = 3;
+            PriceExcludingVATNumericUpDown.DecimalPlaces = 2;
             PriceExcludingVATNumericUpDown.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
             PriceExcludingVATNumericUpDown.ForeColor = Color.FromArgb(255, 211, 0);
             PriceExcludingVATNumericUpDown.Location = new Point(32, 460);

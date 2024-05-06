@@ -18,21 +18,24 @@ namespace NailWarehouseAutomation
     public partial class WarehouseManager : Form
     {
         public readonly Nail nail;
-        public WarehouseManager(Nail sourse)
+        public WarehouseManager(Nail sourse = null)
         {
-            nail = (Nail)sourse?.Clone() ?? new Nail();
-            nail.SetGuid();
-
             InitializeComponent();
+            if (sourse is null)
+            {
+                nail = new Nail();
+                nail.SetGuid();
+            }
+            else
+            {
+                nail = (Nail)sourse.Clone();
+                MainText.Text = "Изменение товара";
+            }
             MaterialComboBox.DataSource = Enum.GetValues(typeof(NailMaterials));
-            //MaterialComboBox.DisplayMember = Enum.GetNames<NailMaterials>();//typeof(NailMaterials)
-            //.GetCustomAttributes(typeof(DisplayNameAttribute), true)
-            //.FirstOrDefault() as string;
 
             NameTextBox.AddBindings(x => x.Text, nail, x => x.Name, errorProvider);
             LengthNumericUpDown.AddBindings(x => x.Value, nail, x => x.Length, errorProvider);
             DiameterNumericUpDown.AddBindings(x => x.Value, nail, x => x.Diameter, errorProvider);
-            //MaterialComboBox.ValueMember = nameof(Material.M);
             MaterialComboBox.AddBindings(x => x.SelectedItem, nail, x => x.Material, errorProvider);
             QuantityNnumericUpDown.AddBindings(x => x.Value, nail, x => x.Quantity, errorProvider);
             PriceExcludingVATNumericUpDown.AddBindings(x => x.Value, nail, x => x.PriceExcludingVAT, errorProvider);
@@ -51,11 +54,16 @@ namespace NailWarehouseAutomation
         }
 
         private void MaterialComboBox_DrawItem(object sender, DrawItemEventArgs e)
-        {// Остановился здесь
-            Type type = sender.GetType();
-            MemberInfo member = type.GetMember(sender.ToString())[0];
-            DisplayAttribute displayAttribute = (DisplayAttribute)Attribute.GetCustomAttribute(member, typeof(DisplayAttribute));
-            e.Graphics.DrawString(displayAttribute.Name, MaterialComboBox.Font, new SolidBrush(MaterialComboBox.ForeColor), new PointF(0.0f, 0.0f));
+        {
+            if (e.Index > -1)
+            {
+                e.DrawBackground();
+                e.DrawFocusRectangle();
+                var brush = (e.State & DrawItemState.Selected) == DrawItemState.Selected
+                    ? new SolidBrush(Color.White)
+                    : new SolidBrush(MaterialComboBox.ForeColor);
+                e.Graphics.DrawString(((NailMaterials)MaterialComboBox.Items[e.Index]).DisplayName(), MaterialComboBox.Font, brush, e.Bounds);
+            }
         }
     }
 }
