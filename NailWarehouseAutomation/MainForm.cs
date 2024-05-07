@@ -127,7 +127,6 @@ namespace NailWarehouseAutomation
                 AVGPrice /= count;
             }
             TotalNumberOfNailsToolStripStatusLabel.Text = $"Общее количество гвоздей на складе: {totalNumberOfNails} шт.";
-            AverageCostOfGoodsToolStripStatusLabel.Text = $"Средняя стоимость товара: {AVGPrice:C2} руб.";
             TotalCostIncludingVATOfGoodsToolStripStatusLabel.Text = $"Общая стоимость без НДС: {totalCostIncludingVAT:C2} руб.";
             NumberOfProductLinesToolStripStatusLabel.Text = $"Количество товарных позиций: {count}";
             TotalCostWithVATToolStripStatusLabel.Text = $"Общая стоимость с НДС: {TotalCostWithVAT:C2}";

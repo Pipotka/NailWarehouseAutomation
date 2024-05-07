@@ -30,15 +30,14 @@
         {
             statusStrip1 = new StatusStrip();
             TotalNumberOfNailsToolStripStatusLabel = new ToolStripStatusLabel();
-            AverageCostOfGoodsToolStripStatusLabel = new ToolStripStatusLabel();
             TotalCostIncludingVATOfGoodsToolStripStatusLabel = new ToolStripStatusLabel();
+            NumberOfProductLinesToolStripStatusLabel = new ToolStripStatusLabel();
+            TotalCostWithVATToolStripStatusLabel = new ToolStripStatusLabel();
             WarehouseMenuStrip = new MenuStrip();
             AddToolStripMenuItem = new ToolStripMenuItem();
             ChangeToolStripMenuItem = new ToolStripMenuItem();
             DeleteToolStripMenuItem = new ToolStripMenuItem();
             WarehouseDataGridView = new DataGridView();
-            NumberOfProductLinesToolStripStatusLabel = new ToolStripStatusLabel();
-            TotalCostWithVATToolStripStatusLabel = new ToolStripStatusLabel();
             statusStrip1.SuspendLayout();
             WarehouseMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)WarehouseDataGridView).BeginInit();
@@ -47,10 +46,10 @@
             // statusStrip1
             // 
             statusStrip1.BackColor = Color.FromArgb(113, 9, 170);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { TotalNumberOfNailsToolStripStatusLabel, AverageCostOfGoodsToolStripStatusLabel, TotalCostIncludingVATOfGoodsToolStripStatusLabel, NumberOfProductLinesToolStripStatusLabel, TotalCostWithVATToolStripStatusLabel });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { TotalNumberOfNailsToolStripStatusLabel, TotalCostIncludingVATOfGoodsToolStripStatusLabel, NumberOfProductLinesToolStripStatusLabel, TotalCostWithVATToolStripStatusLabel });
             statusStrip1.Location = new Point(0, 557);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(1206, 22);
+            statusStrip1.Size = new Size(1159, 22);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -62,14 +61,6 @@
             TotalNumberOfNailsToolStripStatusLabel.Size = new Size(254, 17);
             TotalNumberOfNailsToolStripStatusLabel.Text = "Общее количество гвоздей на складе:";
             // 
-            // AverageCostOfGoodsToolStripStatusLabel
-            // 
-            AverageCostOfGoodsToolStripStatusLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            AverageCostOfGoodsToolStripStatusLabel.ForeColor = Color.FromArgb(255, 211, 0);
-            AverageCostOfGoodsToolStripStatusLabel.Name = "AverageCostOfGoodsToolStripStatusLabel";
-            AverageCostOfGoodsToolStripStatusLabel.Size = new Size(182, 17);
-            AverageCostOfGoodsToolStripStatusLabel.Text = "Средняя стоимость товара:";
-            // 
             // TotalCostIncludingVATOfGoodsToolStripStatusLabel
             // 
             TotalCostIncludingVATOfGoodsToolStripStatusLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -78,13 +69,29 @@
             TotalCostIncludingVATOfGoodsToolStripStatusLabel.Size = new Size(182, 17);
             TotalCostIncludingVATOfGoodsToolStripStatusLabel.Text = "Общая стоимость без НДС:";
             // 
+            // NumberOfProductLinesToolStripStatusLabel
+            // 
+            NumberOfProductLinesToolStripStatusLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            NumberOfProductLinesToolStripStatusLabel.ForeColor = Color.FromArgb(255, 211, 0);
+            NumberOfProductLinesToolStripStatusLabel.Name = "NumberOfProductLinesToolStripStatusLabel";
+            NumberOfProductLinesToolStripStatusLabel.Size = new Size(212, 17);
+            NumberOfProductLinesToolStripStatusLabel.Text = "Количество товарных позиций:";
+            // 
+            // TotalCostWithVATToolStripStatusLabel
+            // 
+            TotalCostWithVATToolStripStatusLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            TotalCostWithVATToolStripStatusLabel.ForeColor = Color.FromArgb(255, 211, 0);
+            TotalCostWithVATToolStripStatusLabel.Name = "TotalCostWithVATToolStripStatusLabel";
+            TotalCostWithVATToolStripStatusLabel.Size = new Size(167, 17);
+            TotalCostWithVATToolStripStatusLabel.Text = "Общая стоимость с НДС:";
+            // 
             // WarehouseMenuStrip
             // 
             WarehouseMenuStrip.BackColor = Color.FromArgb(18, 64, 171);
             WarehouseMenuStrip.Items.AddRange(new ToolStripItem[] { AddToolStripMenuItem, ChangeToolStripMenuItem, DeleteToolStripMenuItem });
             WarehouseMenuStrip.Location = new Point(0, 0);
             WarehouseMenuStrip.Name = "WarehouseMenuStrip";
-            WarehouseMenuStrip.Size = new Size(1206, 31);
+            WarehouseMenuStrip.Size = new Size(1159, 31);
             WarehouseMenuStrip.TabIndex = 1;
             WarehouseMenuStrip.Text = "menuStrip";
             // 
@@ -131,31 +138,15 @@
             WarehouseDataGridView.Location = new Point(0, 31);
             WarehouseDataGridView.Name = "WarehouseDataGridView";
             WarehouseDataGridView.ReadOnly = true;
-            WarehouseDataGridView.Size = new Size(1206, 526);
+            WarehouseDataGridView.Size = new Size(1159, 526);
             WarehouseDataGridView.TabIndex = 2;
             WarehouseDataGridView.CellFormatting += WarehouseDataGridView_CellFormatting;
-            // 
-            // NumberOfProductLinesToolStripStatusLabel
-            // 
-            NumberOfProductLinesToolStripStatusLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            NumberOfProductLinesToolStripStatusLabel.ForeColor = Color.FromArgb(255, 211, 0);
-            NumberOfProductLinesToolStripStatusLabel.Name = "NumberOfProductLinesToolStripStatusLabel";
-            NumberOfProductLinesToolStripStatusLabel.Size = new Size(212, 17);
-            NumberOfProductLinesToolStripStatusLabel.Text = "Количество товарных позиций:";
-            // 
-            // TotalCostWithVATToolStripStatusLabel
-            // 
-            TotalCostWithVATToolStripStatusLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            TotalCostWithVATToolStripStatusLabel.ForeColor = Color.FromArgb(255, 211, 0);
-            TotalCostWithVATToolStripStatusLabel.Name = "TotalCostWithVATToolStripStatusLabel";
-            TotalCostWithVATToolStripStatusLabel.Size = new Size(167, 17);
-            TotalCostWithVATToolStripStatusLabel.Text = "Общая стоимость с НДС:";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1206, 579);
+            ClientSize = new Size(1159, 579);
             Controls.Add(WarehouseDataGridView);
             Controls.Add(statusStrip1);
             Controls.Add(WarehouseMenuStrip);
@@ -181,10 +172,9 @@
         private ToolStripMenuItem ChangeToolStripMenuItem;
         private ToolStripMenuItem DeleteToolStripMenuItem;
         private DataGridView WarehouseDataGridView;
-        private ToolStripStatusLabel TotalNumberOfNailsToolStripStatusLabel;
-        private ToolStripStatusLabel AverageCostOfGoodsToolStripStatusLabel;
         private ToolStripStatusLabel TotalCostIncludingVATOfGoodsToolStripStatusLabel;
         private ToolStripStatusLabel NumberOfProductLinesToolStripStatusLabel;
         private ToolStripStatusLabel TotalCostWithVATToolStripStatusLabel;
+        private ToolStripStatusLabel TotalNumberOfNailsToolStripStatusLabel;
     }
 }
