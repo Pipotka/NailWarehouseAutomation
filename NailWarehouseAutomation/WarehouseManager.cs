@@ -12,6 +12,7 @@ using NailWarehouseAutomation.Helpers;
 using NailWarehouseAutomation.Models.ClassEnums;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace NailWarehouseAutomation
 {
@@ -24,7 +25,6 @@ namespace NailWarehouseAutomation
             if (sourse is null)
             {
                 nail = new Nail();
-                nail.SetGuid();
             }
             else
             {
@@ -43,8 +43,20 @@ namespace NailWarehouseAutomation
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            var context = new ValidationContext(nail);
+            var resualts = new List<ValidationResult>();
+            if (Validator.TryValidateObject(nail, context, resualts, true))
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Вы ввели некорректные данные",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

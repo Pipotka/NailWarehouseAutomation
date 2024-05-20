@@ -9,6 +9,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace NailWarehouseAutomation.Models
 {
+    /// <summary>Модель гвоздей</summary>
     public class Nail : ICloneable
     {
         /// <summary>
@@ -27,7 +28,7 @@ namespace NailWarehouseAutomation.Models
         /// <summary>
         /// Первичный ключ для БД
         /// </summary>
-        private Guid id;
+        public Guid id { set; get; } = Guid.NewGuid();
         /// <summary>
         /// Наименование гвоздей
         /// </summary>
@@ -58,7 +59,7 @@ namespace NailWarehouseAutomation.Models
         [Display(Name = "Материал")]
         public ClassEnums.NailMaterials Material { get; set; }
         /// <summary>
-        /// Количество данных гвоздей
+        /// Количество гвоздей
         /// </summary>
         [Required(ErrorMessage = "Не указано количество товара")]
         [Range(minQuantity, int.MaxValue, ErrorMessage = "Недопустимое количество товара")]
@@ -86,14 +87,5 @@ namespace NailWarehouseAutomation.Models
         /// <param name="VAT">НДС</param>
         /// <returns>Возвращает стоимость товара с НДС</returns>
         public double PriceIncludingVAT(double VAT) => (PriceExcludingVAT / 100 * VAT) + PriceExcludingVAT;
-        /// <summary>
-        /// Устанавливает id товара
-        /// </summary>
-        public void SetGuid() => id = Guid.NewGuid();
-        /// <summary>
-        /// Возвращает id товара
-        /// </summary>
-        /// <returns>id</returns>
-        public Guid GetId() => id;
     }
 } 

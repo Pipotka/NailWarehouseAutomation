@@ -155,6 +155,7 @@
             MinimizeBox = false;
             Name = "MainForm";
             Text = "Warehouse";
+            Load += MainForm_Load;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             WarehouseMenuStrip.ResumeLayout(false);
