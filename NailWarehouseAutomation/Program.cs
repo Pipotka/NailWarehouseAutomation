@@ -1,4 +1,4 @@
-namespace NailWarehouseAutomation
+﻿namespace NailWarehouseAutomation
 {
     internal static class Program
     {
