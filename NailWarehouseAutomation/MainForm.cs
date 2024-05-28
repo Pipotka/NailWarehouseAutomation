@@ -6,6 +6,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Serilog;
+using Serilog.Sinks.File;
+
+
 
 namespace NailWarehouseAutomation
 {
@@ -14,6 +18,11 @@ namespace NailWarehouseAutomation
         private readonly BindingSource bindingSource;
         private readonly BindingList<Nail> nails;
         private const double VAT = 20;
+        private Serilog.Core.Logger logger = new LoggerConfiguration()
+            .WriteTo.File("Log\\log.txt", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true)
+            .CreateLogger();
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,12 +43,14 @@ namespace NailWarehouseAutomation
             var managerForm = new WarehouseManager();
             if (managerForm.ShowDialog() == DialogResult.OK)
             {
+                logger.Information("Start adding a {Type} object.", nameof(Nail));
                 using (var context = new NailContext())
                 {
                     context.Nails.Add(managerForm.nail);
                     await context.SaveChangesAsync();
                 }
                 nails.Add(managerForm.nail);
+                logger.Information("Ending the addition of an object. It has {@Nail}", managerForm.nail);
             }
             CalculateStatus();
         }
@@ -52,6 +63,7 @@ namespace NailWarehouseAutomation
                 var managerForm = new WarehouseManager(nail);
                 if (managerForm.ShowDialog() == DialogResult.OK)
                 {
+                    logger.Information("start of changing \"{Type}\" object with field values {@Nail}", nameof(Nail), nail);
                     using (var context = new NailContext())
                     {
                         var newNail = context.Nails.Find(managerForm.nail.id);
@@ -69,6 +81,7 @@ namespace NailWarehouseAutomation
                         nail.PriceExcludingVAT = managerForm.nail.PriceExcludingVAT;
                         nail.Quantity = managerForm.nail.Quantity;
                     }
+                    logger.Information("End of modification of object. It now has {@Nail}", nail);
                 }
                 CalculateStatus();
             }
@@ -123,13 +136,15 @@ namespace NailWarehouseAutomation
                 if (resualt == DialogResult.Yes)
                 {
                     var nail = (Nail)WarehouseDataGridView.SelectedRows[0].DataBoundItem;
+                    logger.Information("start of deleting the \"{Type}\" object with field values {@Nail}", nameof(Nail), nail);
                     using (var context = new NailContext())
                     {
                         var newNail = context.Nails.Find(nail.id);
                         context.Nails.Remove(newNail);
                         await context.SaveChangesAsync();
                     }
-                    bindingSource.Remove(nail);
+                    nails.Remove(nail);
+                    logger.Information("object {@Nail} successfully deleted", nail);
                     CalculateStatus();
                 }
             }
@@ -171,6 +186,12 @@ namespace NailWarehouseAutomation
                     nails.Add(item);
                 }
             }
+            logger.Information("Start program");
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            logger.Information("\nEnd of program");
         }
     }
 }
