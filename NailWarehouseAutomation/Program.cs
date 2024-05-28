@@ -1,4 +1,6 @@
-﻿namespace NailWarehouseAutomation
+﻿using Serilog;
+
+namespace NailWarehouseAutomation
 {
     internal static class Program
     {

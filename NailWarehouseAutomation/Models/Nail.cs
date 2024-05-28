@@ -87,9 +87,5 @@ namespace NailWarehouseAutomation.Models
         /// <param name="VAT">НДС</param>
         /// <returns>Возвращает стоимость товара с НДС</returns>
         public double PriceIncludingVAT(double VAT) => (PriceExcludingVAT / 100 * VAT) + PriceExcludingVAT;
-
-        public static bool operator== (Nail left, Nail right) => left.id == right.id;
-        
-        public static bool operator!= (Nail left, Nail right) => !(left == right);
     }
 } 
