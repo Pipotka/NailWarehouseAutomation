@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using Serilog;
 using Serilog.Sinks.File;
+using Serilog.Core;
 
 
 
@@ -18,17 +19,14 @@ namespace NailWarehouseAutomation
         private readonly BindingSource bindingSource;
         private readonly BindingList<Nail> nails;
         private const double VAT = 20;
-        private Serilog.Core.Logger logger = new LoggerConfiguration()
-            .WriteTo.File("Log\\log.txt", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true)
-            .CreateLogger();
-
 
         public MainForm()
         {
             InitializeComponent();
             bindingSource = new BindingSource();
             nails = new BindingList<Nail>();
-            WarehouseDataGridView.AutoGenerateColumns = false;
+            WarehouseDataGridView
+                .AutoGenerateColumns = false;
             bindingSource.DataSource = nails;
             WarehouseDataGridView.DataSource = bindingSource;
             WarehouseDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -43,14 +41,15 @@ namespace NailWarehouseAutomation
             var managerForm = new WarehouseManager();
             if (managerForm.ShowDialog() == DialogResult.OK)
             {
-                logger.Information("Start adding a {Type} object.", nameof(Nail));
+                Log.Information("Start adding a {Type} object.", nameof(Nail));
+                
                 using (var context = new NailContext())
                 {
                     context.Nails.Add(managerForm.nail);
                     await context.SaveChangesAsync();
                 }
                 nails.Add(managerForm.nail);
-                logger.Information("Ending the addition of an object. It has {@Nail}", managerForm.nail);
+                Log.Information("Ending the addition of an object. It has {@Nail}", managerForm.nail);
             }
             CalculateStatus();
         }
@@ -63,7 +62,8 @@ namespace NailWarehouseAutomation
                 var managerForm = new WarehouseManager(nail);
                 if (managerForm.ShowDialog() == DialogResult.OK)
                 {
-                    logger.Information("start of changing \"{Type}\" object with field values {@Nail}", nameof(Nail), nail);
+                    Log.Information("start of changing \"{Type}\" object with field values {@Nail}", nameof(Nail), nail);
+
                     using (var context = new NailContext())
                     {
                         var newNail = context.Nails.Find(managerForm.nail.id);
@@ -81,7 +81,7 @@ namespace NailWarehouseAutomation
                         nail.PriceExcludingVAT = managerForm.nail.PriceExcludingVAT;
                         nail.Quantity = managerForm.nail.Quantity;
                     }
-                    logger.Information("End of modification of object. It now has {@Nail}", nail);
+                    Log.Information("End of modification of object. It now has {@Nail}", nail);
                 }
                 CalculateStatus();
             }
@@ -136,7 +136,7 @@ namespace NailWarehouseAutomation
                 if (resualt == DialogResult.Yes)
                 {
                     var nail = (Nail)WarehouseDataGridView.SelectedRows[0].DataBoundItem;
-                    logger.Information("start of deleting the \"{Type}\" object with field values {@Nail}", nameof(Nail), nail);
+                    Log.Information("start of deleting the \"{Type}\" object with field values {@Nail}", nameof(Nail), nail);
                     using (var context = new NailContext())
                     {
                         var newNail = context.Nails.Find(nail.id);
@@ -144,7 +144,7 @@ namespace NailWarehouseAutomation
                         await context.SaveChangesAsync();
                     }
                     nails.Remove(nail);
-                    logger.Information("object {@Nail} successfully deleted", nail);
+                    Log.Information("object {@Nail} successfully deleted", nail);
                     CalculateStatus();
                 }
             }
@@ -186,12 +186,20 @@ namespace NailWarehouseAutomation
                     nails.Add(item);
                 }
             }
-            logger.Information("Start program");
+
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.File("Log\\log.txt", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true)
+            .WriteTo.Seq("http://localhost:5341")
+            .CreateLogger();
+
+            Log.Information("Start program");
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            logger.Information("\nEnd of program");
+            Log.Information("\nEnd of program");
+            Log.CloseAndFlush();
         }
     }
 }
